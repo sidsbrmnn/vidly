@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { getGenres } from '../services/fakeGenreService';
 import { getMovies } from '../services/fakeMovieService';
 import { orderBy, paginate } from '../utils/lodash';
@@ -23,7 +24,11 @@ class Movies extends Component {
   };
 
   columns = [
-    { path: 'title', label: 'Title' },
+    {
+      path: 'title',
+      label: 'Title',
+      content: movie => <Link to={`/movies/${movie._id}`}>{movie.title}</Link>,
+    },
     { path: 'genre.name', label: 'Genre' },
     { path: 'numberInStock', label: 'Stock' },
     { path: 'dailyRentalRate', label: 'Rate' },
@@ -92,30 +97,32 @@ class Movies extends Component {
     const pagedMovies = paginate(sorted, currentPage, pageSize);
 
     return (
-      <div className="row">
-        <div className="col-12 col-md-3">
-          <ListGroup
-            items={genres}
-            selectedItem={selectedGenre}
-            onItemSelect={this.handleGenreSelect}
-          />
+      <section className="py-5">
+        <div className="row">
+          <div className="col-12 col-md-3">
+            <ListGroup
+              items={genres}
+              selectedItem={selectedGenre}
+              onItemSelect={this.handleGenreSelect}
+            />
+          </div>
+          <div className="col-12 col-md-9 mt-4 mt-md-0">
+            <p>Showing {filtered.length} movies in the database.</p>
+            <Table
+              columns={this.columns}
+              sortColumn={sortColumn}
+              data={pagedMovies}
+              onSort={this.handleSort}
+            />
+            <Pagination
+              itemsCount={filtered.length}
+              pageSize={pageSize}
+              currentPage={currentPage}
+              onPageChange={this.handlePageChange}
+            />
+          </div>
         </div>
-        <div className="col-12 col-md-9 mt-4 mt-md-0">
-          <p>Showing {filtered.length} movies in the database.</p>
-          <Table
-            columns={this.columns}
-            sortColumn={sortColumn}
-            data={pagedMovies}
-            onSort={this.handleSort}
-          />
-          <Pagination
-            itemsCount={filtered.length}
-            pageSize={pageSize}
-            currentPage={currentPage}
-            onPageChange={this.handlePageChange}
-          />
-        </div>
-      </div>
+      </section>
     );
   }
 }
