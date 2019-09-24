@@ -1,30 +1,11 @@
 import React, { Component } from 'react';
 import { getGenres } from '../services/fakeGenreService';
 import { getMovies } from '../services/fakeMovieService';
+import { orderBy, paginate } from '../utils/lodash';
+import Like from './common/like';
 import ListGroup from './common/listGroup';
 import Pagination from './common/pagination';
-import MoviesTable from './moviesTable';
-
-const paginate = (items, pageNumber, pageSize) => {
-  const startIndex = (pageNumber - 1) * pageSize;
-  return items.slice(startIndex, startIndex + pageSize);
-};
-
-const orderBy = (items, iteratee, order = 'asc') => {
-  function getValue(item, path) {
-    return path.split('.').reduce((acc, key) => acc && acc[key], item);
-  }
-
-  return [...items].sort((a, b) => {
-    const valueA = getValue(a, iteratee);
-    const valueB = getValue(b, iteratee);
-
-    const orderFactor = order === 'asc' ? 1 : -1;
-    if (valueA < valueB) return -1 * orderFactor;
-    if (valueA > valueB) return 1 * orderFactor;
-    return 0;
-  });
-};
+import Table from './common/table';
 
 const ALL_GENRES = {
   _id: (Math.random() * 10e16).toString(),
@@ -40,6 +21,30 @@ class Movies extends Component {
     currentPage: 1,
     sortColumn: { path: 'title', order: 'asc' },
   };
+
+  columns = [
+    { path: 'title', label: 'Title' },
+    { path: 'genre.name', label: 'Genre' },
+    { path: 'numberInStock', label: 'Stock' },
+    { path: 'dailyRentalRate', label: 'Rate' },
+    {
+      key: 'like',
+      content: movie => (
+        <Like liked={movie.liked} onClick={() => this.handleLike(movie)} />
+      ),
+    },
+    {
+      key: 'delete',
+      content: movie => (
+        <button
+          onClick={() => this.handleDelete(movie)}
+          className="btn btn-danger btn-sm"
+        >
+          Delete
+        </button>
+      ),
+    },
+  ];
 
   componentDidMount() {
     const movies = getMovies();
@@ -97,11 +102,10 @@ class Movies extends Component {
         </div>
         <div className="col-12 col-md-9 mt-4 mt-md-0">
           <p>Showing {filtered.length} movies in the database.</p>
-          <MoviesTable
-            movies={pagedMovies}
+          <Table
+            columns={this.columns}
             sortColumn={sortColumn}
-            onDelete={this.handleDelete}
-            onLike={this.handleLike}
+            data={pagedMovies}
             onSort={this.handleSort}
           />
           <Pagination

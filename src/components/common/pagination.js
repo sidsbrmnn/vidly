@@ -1,12 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { cx } from '../../utils/cx';
-
-const range = (start, stop, step = 1) =>
-  Array.from(
-    { length: Math.ceil((stop - start) / step) },
-    (_, i) => start + i * step
-  );
+import { range } from '../../utils/lodash';
 
 const Pagination = ({ itemsCount, pageSize, currentPage, onPageChange }) => {
   const pageCount = Math.ceil(itemsCount / pageSize);
