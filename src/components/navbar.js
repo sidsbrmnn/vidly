@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 
@@ -18,7 +19,7 @@ const Navbar = ({ links }) => {
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
-          <span class="navbar-toggler-icon"></span>
+          <span className="navbar-toggler-icon"></span>
         </button>
 
         <div id="navbarSupportedContent" className="collapse navbar-collapse">
@@ -31,10 +32,36 @@ const Navbar = ({ links }) => {
               </li>
             ))}
           </ul>
+
+          <ul className="navbar-nav ml-auto">
+            <li className="nav-item">
+              <NavLink to="/login" className="nav-link">
+                Login
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink to="/register" className="nav-link">
+                Register
+              </NavLink>
+            </li>
+          </ul>
         </div>
       </div>
     </nav>
   );
+};
+
+Navbar.defaultProps = {
+  links: [],
+};
+
+Navbar.propTypes = {
+  links: PropTypes.arrayOf(
+    PropTypes.shape({
+      path: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired,
+    })
+  ),
 };
 
 export default Navbar;
