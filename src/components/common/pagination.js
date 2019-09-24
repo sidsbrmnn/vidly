@@ -1,0 +1,42 @@
+import PropTypes from 'prop-types';
+import React from 'react';
+import { cx } from '../../utils/cx';
+
+const range = (start, stop, step = 1) =>
+  Array.from(
+    { length: Math.ceil((stop - start) / step) },
+    (_, i) => start + i * step
+  );
+
+const Pagination = ({ itemsCount, pageSize, currentPage, onPageChange }) => {
+  const pageCount = Math.ceil(itemsCount / pageSize);
+  if (pageCount === 1) return null;
+
+  const pages = range(1, pageCount + 1);
+
+  return (
+    <nav>
+      <ul className="pagination">
+        {pages.map(page => (
+          <li
+            key={page}
+            className={cx('page-item', page === currentPage && 'active')}
+          >
+            <button className="page-link" onClick={() => onPageChange(page)}>
+              {page}
+            </button>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  );
+};
+
+Pagination.propTypes = {
+  itemsCount: PropTypes.number.isRequired,
+  pageSize: PropTypes.number.isRequired,
+  currentPage: PropTypes.number.isRequired,
+  onPageChange: PropTypes.func.isRequired,
+};
+
+export default Pagination;
