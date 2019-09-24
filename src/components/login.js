@@ -104,7 +104,11 @@ class Login extends Component {
               error={errors.password}
             />
           </div>
-          <button type="submit" className="btn btn-primary">
+          <button
+            type="submit"
+            className="btn btn-primary"
+            disabled={Object.keys(errors).length > 0}
+          >
             Login
           </button>
         </form>
