@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { object, string } from 'yup';
+import Form from './common/form';
 import Input from './common/input';
 
-class Login extends Component {
+class Login extends Form {
   state = {
     formData: {
       username: '',
@@ -16,55 +17,9 @@ class Login extends Component {
     password: string().required(),
   });
 
-  validate = async () => {
-    const { formData } = this.state;
-    const errors = {};
-
-    try {
-      await this.schema.validate(formData, { abortEarly: false });
-    } catch (error) {
-      error.inner.forEach(err => {
-        errors[err.path] = err.message;
-      });
-    }
-
-    this.setState({ errors });
-
-    return Object.keys(errors).length === 0;
-  };
-
-  validateField = async (path, data) => {
-    const { errors } = this.state;
-
-    try {
-      await this.schema.validateAt(path, data);
-      delete errors[path];
-    } catch (error) {
-      errors[path] = error.message;
-    }
-
-    this.setState({ errors });
-  };
-
-  handleSubmit = async e => {
-    e.preventDefault();
-
+  onSubmit = async () => {
     const { history } = this.props;
-
-    const ok = await this.validate();
-    if (!ok) return;
-
     history.push('/');
-  };
-
-  handleChange = async e => {
-    const { name, value } = e.target;
-    const { formData } = this.state;
-
-    formData[name] = value;
-    this.setState({ formData });
-
-    await this.validateField(name, formData);
   };
 
   render() {
