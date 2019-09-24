@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { object, string } from 'yup';
-import { cx } from '../utils/cx';
+import Input from './common/input';
 
 class Login extends Component {
   state = {
@@ -76,45 +76,33 @@ class Login extends Component {
 
         <form className="mt-4" onSubmit={this.handleSubmit} noValidate>
           <div className="form-row">
-            <div className="form-group col-md-6 col-lg-4">
-              <label htmlFor="username">Username</label>
-              <input
-                type="email"
-                name="username"
-                id="username"
-                className={cx('form-control', errors.username && 'is-invalid')}
-                placeholder="Username"
-                value={formData.username}
-                onChange={this.handleChange}
-                required
-                autoFocus
-                autoComplete="email"
-                error={errors.username}
-              />
-              {errors.username && (
-                <div className="invalid-feedback">{errors.username}</div>
-              )}
-            </div>
+            <Input
+              type="email"
+              name="username"
+              label="Username"
+              className="col-md-6 col-lg-4"
+              placeholder="Username"
+              value={formData.username}
+              onChange={this.handleChange}
+              required
+              autoFocus
+              autoComplete="email"
+              error={errors.username}
+            />
           </div>
           <div className="form-row">
-            <div className="form-group col-md-6 col-lg-4">
-              <label htmlFor="password">Password</label>
-              <input
-                type="password"
-                name="password"
-                id="password"
-                className={cx('form-control', errors.password && 'is-invalid')}
-                placeholder="Password"
-                value={formData.password}
-                onChange={this.handleChange}
-                required
-                autoComplete="current-password"
-                error={errors.password}
-              />
-              {errors.password && (
-                <div className="invalid-feedback">{errors.password}</div>
-              )}
-            </div>
+            <Input
+              type="password"
+              name="password"
+              label="Password"
+              className="col-md-6 col-lg-4"
+              placeholder="Password"
+              value={formData.password}
+              onChange={this.handleChange}
+              required
+              autoComplete="current-password"
+              error={errors.password}
+            />
           </div>
           <button type="submit" className="btn btn-primary">
             Login
