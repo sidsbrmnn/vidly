@@ -1,72 +1,68 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { object, string } from 'yup';
+import Field from './common/field';
 import Form from './common/form';
-import Input from './common/input';
 
-class Login extends Form {
-  state = {
-    formData: {
-      username: '',
-      password: '',
-    },
-    errors: {},
-  };
-
+class Login extends Component {
   schema = object().shape({
     username: string().email().required(),
     password: string().required(),
   });
 
-  onSubmit = async () => {
-    const { history } = this.props;
-    history.push('/');
+  handleSubmit = values => {
+    console.log('form:', values);
+    setTimeout(() => {
+      const { history } = this.props;
+      history.push('/');
+    }, 1000);
   };
 
   render() {
-    const { formData, errors } = this.state;
-
     return (
       <section className="py-5">
         <h1>Login</h1>
 
-        <form className="mt-4" onSubmit={this.handleSubmit} noValidate>
-          <div className="form-row">
-            <Input
-              type="email"
-              name="username"
-              label="Username"
-              className="col-md-6 col-lg-4"
-              placeholder="Username"
-              value={formData.username}
-              onChange={this.handleChange}
-              required
-              autoFocus
-              autoComplete="email"
-              error={errors.username}
-            />
-          </div>
-          <div className="form-row">
-            <Input
-              type="password"
-              name="password"
-              label="Password"
-              className="col-md-6 col-lg-4"
-              placeholder="Password"
-              value={formData.password}
-              onChange={this.handleChange}
-              required
-              autoComplete="current-password"
-              error={errors.password}
-            />
-          </div>
-          <button
-            type="submit"
-            className="btn btn-primary"
-            disabled={Object.keys(errors).length > 0}
-          >
-            Login
-          </button>
-        </form>
+        <Form
+          className="mt-4"
+          initialValues={{ username: '', password: '' }}
+          onSubmit={this.handleSubmit}
+          validationSchema={this.schema}
+        >
+          {({ isSubmitting }) => (
+            <React.Fragment>
+              <div className="form-row">
+                <Field
+                  type="email"
+                  name="username"
+                  label="Username"
+                  className="col-md-6 col-lg-4"
+                  placeholder="Username"
+                  required
+                  autoFocus
+                  autoComplete="email"
+                />
+              </div>
+              <div className="form-row">
+                <Field
+                  type="password"
+                  name="password"
+                  label="Password"
+                  className="col-md-6 col-lg-4"
+                  placeholder="Password"
+                  required
+                  autoComplete="current-password"
+                />
+              </div>
+              <button
+                type="submit"
+                className="btn btn-primary"
+                disabled={isSubmitting}
+              >
+                Login
+              </button>
+            </React.Fragment>
+          )}
+        </Form>
       </section>
     );
   }
