@@ -5,7 +5,7 @@ import Form from './common/form';
 
 class Register extends Component {
   schema = object().shape({
-    fullName: string().required(),
+    name: string().required(),
     email: string().email().required(),
     password: string().required(),
   });
@@ -25,7 +25,7 @@ class Register extends Component {
 
         <Form
           className="mt-4"
-          initialValues={{ fullName: '', email: '', password: '' }}
+          initialValues={{ name: '', email: '', password: '' }}
           onSubmit={this.handleSubmit}
           validationSchema={this.schema}
         >
@@ -34,7 +34,7 @@ class Register extends Component {
               <div className="form-row">
                 <Field
                   type="text"
-                  name="fullName"
+                  name="name"
                   label="Full name"
                   className="col-md-6 col-lg-4"
                   placeholder="John Doe"
