@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { number, object, string } from 'yup';
-import { getGenres } from '../services/fakeGenreService';
-import { getMovie, saveMovie } from '../services/fakeMovieService';
+import { getGenres } from '../services/genre';
+import { getMovie, saveMovie } from '../services/movie';
 import Field from './common/field';
 import Form from './common/form';
 import Select from './common/select';
@@ -24,23 +24,23 @@ class MovieForm extends Component {
     dailyRentalRate: number().positive().max(10).required(),
   });
 
-  componentDidMount() {
+  async componentDidMount() {
     const { history, match } = this.props;
 
-    const genres = getGenres();
+    const genres = await getGenres();
     this.setState({ genres });
 
     const movieId = match.params.id;
     if (movieId === 'new') return;
 
-    const movie = getMovie(movieId);
-    if (!movie) {
-      return history.replace('/not-found');
+    try {
+      const movie = await getMovie(movieId);
+      this.setState({ data: this.mapToViewModel(movie) });
+    } catch (error) {
+      if (error.response && error.response.status === 404) {
+        history.replace('/not-found');
+      }
     }
-
-    console.log('movie:', movie);
-
-    this.setState({ data: this.mapToViewModel(movie) });
   }
 
   mapToViewModel = movie => ({
@@ -51,12 +51,16 @@ class MovieForm extends Component {
     dailyRentalRate: movie.dailyRentalRate,
   });
 
-  handleSubmit = values => {
+  handleSubmit = async (values, { setSubmitting }) => {
     const { history } = this.props;
     const { data } = this.state;
 
-    saveMovie({ _id: data._id, ...values });
-    history.push('/movies');
+    try {
+      await saveMovie({ _id: data._id, ...values });
+      history.push('/movies');
+    } catch {
+      setSubmitting(false);
+    }
   };
 
   render() {

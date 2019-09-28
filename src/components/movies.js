@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { getGenres } from '../services/fakeGenreService';
-import { getMovies } from '../services/fakeMovieService';
+import { getGenres } from '../services/genre';
+import { deleteMovie, getMovies } from '../services/movie';
 import { orderBy, paginate } from '../utils/lodash';
 import Like from './common/like';
 import ListGroup from './common/listGroup';
@@ -53,16 +53,18 @@ class Movies extends Component {
     },
   ];
 
-  componentDidMount() {
-    const movies = getMovies();
-    const genres = getGenres();
+  async componentDidMount() {
+    const movies = await getMovies();
+    const genres = await getGenres();
     genres.unshift(ALL_GENRES);
     this.setState({ movies, genres, selectedGenre: ALL_GENRES });
   }
 
-  handleDelete = movie => {
+  handleDelete = async movie => {
     const movies = this.state.movies.filter(m => m._id !== movie._id);
     this.setState({ movies });
+
+    await deleteMovie(movie._id);
   };
 
   handleLike = movie => {
