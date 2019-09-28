@@ -6,6 +6,7 @@ import { orderBy, paginate } from '../utils/lodash';
 import Like from './common/like';
 import ListGroup from './common/listGroup';
 import Pagination from './common/pagination';
+import SearchBox from './common/searchBox';
 import Table from './common/table';
 
 const ALL_GENRES = {
@@ -21,6 +22,7 @@ class Movies extends Component {
     pageSize: 4,
     currentPage: 1,
     sortColumn: { path: 'title', order: 'asc' },
+    searchQuery: '',
   };
 
   columns = [
@@ -83,18 +85,49 @@ class Movies extends Component {
     this.setState({ sortColumn });
   };
 
-  render() {
-    const { movies, genres, selectedGenre, pageSize, currentPage, sortColumn } =
-      this.state;
+  handleSearch = searchQuery => {
+    this.setState({ searchQuery, currentPage: 1 });
+  };
 
-    if (movies.length === 0) return <p>There are no movies in the database.</p>;
+  getPagedMovies = () => {
+    const {
+      movies,
+      selectedGenre,
+      currentPage,
+      pageSize,
+      sortColumn,
+      searchQuery,
+    } = this.state;
 
-    const filtered =
+    let filtered =
       selectedGenre && selectedGenre._id !== ALL_GENRES._id
         ? movies.filter(m => m.genre._id === selectedGenre._id)
         : movies;
+    if (searchQuery) {
+      filtered = filtered.filter(m =>
+        m.title.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
     const sorted = orderBy(filtered, sortColumn.path, sortColumn.order);
     const pagedMovies = paginate(sorted, currentPage, pageSize);
+
+    return { pagedMovies, filteredCount: filtered.length };
+  };
+
+  render() {
+    const {
+      movies,
+      genres,
+      selectedGenre,
+      pageSize,
+      currentPage,
+      sortColumn,
+      searchQuery,
+    } = this.state;
+
+    if (movies.length === 0) return <p>There are no movies in the database.</p>;
+
+    const { pagedMovies, filteredCount } = this.getPagedMovies();
 
     return (
       <section className="py-5">
@@ -107,11 +140,12 @@ class Movies extends Component {
             />
           </div>
           <div className="col-12 col-md-9 mt-4 mt-md-0 space-y-3">
+            <SearchBox value={searchQuery} onChange={this.handleSearch} />
             <div className="d-sm-flex flex-row-reverse justify-content-between align-items-center space-y-3 space-y-sm-0">
               <Link to="/movies/new" className="btn btn-primary">
                 New Movie
               </Link>
-              <div>Showing {filtered.length} movies in the database.</div>
+              <div>Showing {filteredCount} movies in the database.</div>
             </div>
             <div>
               <Table
@@ -121,7 +155,7 @@ class Movies extends Component {
                 onSort={this.handleSort}
               />
               <Pagination
-                itemsCount={filtered.length}
+                itemsCount={filteredCount}
                 pageSize={pageSize}
                 currentPage={currentPage}
                 onPageChange={this.handlePageChange}
