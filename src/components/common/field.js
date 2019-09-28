@@ -23,21 +23,16 @@ class FieldInner extends Component {
   }
 
   render() {
-    const { className, name, label, component, context, ...rest } = this.props;
-    let C = component;
+    const { className, type, name, label, context, ...rest } = this.props;
+    const isSelect = type === 'select';
+    const C = isSelect ? 'select' : 'input';
     const { handleChange, errors, values } = context;
-
-    if (typeof C !== 'string') {
-      console.warn(
-        'Field component should be a HTML element. Using input as default.'
-      );
-      C = 'input';
-    }
 
     return (
       <div className={cx('form-group', className)}>
         <label htmlFor={name}>{label}</label>
         <C
+          {...(isSelect ? {} : { type })}
           name={name}
           id={name}
           className={cx('form-control', errors[name] && 'is-invalid')}
@@ -60,7 +55,6 @@ const Field = props => {
 };
 
 Field.defaultProps = {
-  component: 'input',
   type: 'text',
 };
 
@@ -68,7 +62,6 @@ Field.propTypes = {
   className: PropTypes.string,
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
-  component: PropTypes.oneOfType([PropTypes.string, PropTypes.elementType]),
   type: PropTypes.string,
   placeholder: PropTypes.string,
   required: PropTypes.bool,
