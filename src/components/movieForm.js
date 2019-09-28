@@ -25,12 +25,19 @@ class MovieForm extends Component {
   });
 
   async componentDidMount() {
-    const { history, match } = this.props;
+    await this.populateGenres();
+    await this.populateMovie();
+  }
 
+  populateGenres = async () => {
     const genres = await getGenres();
     this.setState({ genres });
+  };
 
+  populateMovie = async () => {
+    const { match, history } = this.props;
     const movieId = match.params.id;
+
     if (movieId === 'new') return;
 
     try {
@@ -41,7 +48,7 @@ class MovieForm extends Component {
         history.replace('/not-found');
       }
     }
-  }
+  };
 
   mapToViewModel = movie => ({
     _id: movie._id,
