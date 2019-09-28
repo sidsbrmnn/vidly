@@ -13,6 +13,7 @@ import Navbar from './components/navbar';
 import NotFound from './components/notFound';
 import Register from './components/register';
 import Rentals from './components/rentals';
+import './App.css';
 
 class App extends Component {
   navLinks = [

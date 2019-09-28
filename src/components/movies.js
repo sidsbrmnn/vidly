@@ -106,25 +106,27 @@ class Movies extends Component {
               onItemSelect={this.handleGenreSelect}
             />
           </div>
-          <div className="col-12 col-md-9 mt-4 mt-md-0">
-            <div className="d-sm-flex flex-row-reverse justify-content-between align-items-center mb-3">
-              <Link to="/movies/new" className="btn btn-primary mb-3 mb-sm-0">
+          <div className="col-12 col-md-9 mt-4 mt-md-0 space-y-3">
+            <div className="d-sm-flex flex-row-reverse justify-content-between align-items-center space-y-3 space-y-sm-0">
+              <Link to="/movies/new" className="btn btn-primary">
                 New Movie
               </Link>
               <div>Showing {filtered.length} movies in the database.</div>
             </div>
-            <Table
-              columns={this.columns}
-              sortColumn={sortColumn}
-              data={pagedMovies}
-              onSort={this.handleSort}
-            />
-            <Pagination
-              itemsCount={filtered.length}
-              pageSize={pageSize}
-              currentPage={currentPage}
-              onPageChange={this.handlePageChange}
-            />
+            <div>
+              <Table
+                columns={this.columns}
+                sortColumn={sortColumn}
+                data={pagedMovies}
+                onSort={this.handleSort}
+              />
+              <Pagination
+                itemsCount={filtered.length}
+                pageSize={pageSize}
+                currentPage={currentPage}
+                onPageChange={this.handlePageChange}
+              />
+            </div>
           </div>
         </div>
       </section>
