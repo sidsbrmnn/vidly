@@ -16,6 +16,7 @@ import NotFound from './components/notFound';
 import Register from './components/register';
 import Rentals from './components/rentals';
 import './App.css';
+import ProtectedRoute from './components/common/protectedRoute';
 
 class App extends Component {
   navLinks = [
@@ -33,10 +34,10 @@ class App extends Component {
           </header>
           <main className="container">
             <Switch>
-              <Route path="/movies/:id" component={MovieForm} />
+              <ProtectedRoute path="/movies/:id" component={MovieForm} />
               <Route path="/movies" component={Movies} />
-              <Route path="/customers" component={Customers} />
-              <Route path="/rentals" component={Rentals} />
+              <ProtectedRoute path="/customers" component={Customers} />
+              <ProtectedRoute path="/rentals" component={Rentals} />
               <Route path="/not-found" component={NotFound} />
 
               <Route path="/login" component={Login} />
