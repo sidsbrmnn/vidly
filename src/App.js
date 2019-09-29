@@ -8,6 +8,7 @@ import {
 import { AuthProvider } from './components/common/auth';
 import Customers from './components/customers';
 import Login from './components/login';
+import Logout from './components/logout';
 import MovieForm from './components/movieForm';
 import Movies from './components/movies';
 import Navbar from './components/navbar';
@@ -39,6 +40,7 @@ class App extends Component {
               <Route path="/not-found" component={NotFound} />
 
               <Route path="/login" component={Login} />
+              <Route path="/logout" component={Logout} />
               <Route path="/register" component={Register} />
 
               <Redirect from="/" exact to="/movies" />
