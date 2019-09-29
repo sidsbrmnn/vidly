@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { cx } from '../utils/cx';
+import { withAuth } from './common/auth';
 
 class Navbar extends Component {
   state = {
@@ -13,7 +14,7 @@ class Navbar extends Component {
   };
 
   render() {
-    const { links } = this.props;
+    const { auth, links } = this.props;
     const { isOpen } = this.state;
 
     return (
@@ -49,16 +50,33 @@ class Navbar extends Component {
             </ul>
 
             <ul className="navbar-nav ml-auto">
-              <li className="nav-item">
-                <NavLink to="/login" className="nav-link">
-                  Login
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink to="/register" className="nav-link">
-                  Register
-                </NavLink>
-              </li>
+              {auth.payload ? (
+                <Fragment>
+                  <li className="nav-item">
+                    <NavLink to="/profile" className="nav-link">
+                      {auth.payload.name}
+                    </NavLink>
+                  </li>
+                  <li className="nav-item">
+                    <NavLink to="/logout" className="nav-link">
+                      Logout
+                    </NavLink>
+                  </li>
+                </Fragment>
+              ) : (
+                <Fragment>
+                  <li className="nav-item">
+                    <NavLink to="/login" className="nav-link">
+                      Login
+                    </NavLink>
+                  </li>
+                  <li className="nav-item">
+                    <NavLink to="/register" className="nav-link">
+                      Register
+                    </NavLink>
+                  </li>
+                </Fragment>
+              )}
             </ul>
           </div>
         </div>
@@ -80,4 +98,4 @@ Navbar.propTypes = {
   ),
 };
 
-export default Navbar;
+export default withAuth(Navbar);

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { object, string } from 'yup';
+import { withAuth } from './common/auth';
 import Field from './common/field';
 import Form from './common/form';
 import { login } from '../services/authService';
@@ -11,11 +12,11 @@ class Login extends Component {
   });
 
   handleSubmit = async (values, { setFieldError, setSubmitting }) => {
-    const { history } = this.props;
+    const { auth, history } = this.props;
 
     try {
       const { data: token } = await login(values);
-      localStorage.setItem('token', token);
+      auth.setToken(token);
       history.push('/');
     } catch (error) {
       const { response } = error;
@@ -78,4 +79,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default withAuth(Login);

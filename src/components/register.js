@@ -3,6 +3,7 @@ import { object, string } from 'yup';
 import Field from './common/field';
 import Form from './common/form';
 import { register } from '../services/userService';
+import { withAuth } from './common/auth';
 
 class Register extends Component {
   schema = object().shape({
@@ -12,12 +13,12 @@ class Register extends Component {
   });
 
   handleSubmit = async (values, { setFieldError, setSubmitting }) => {
-    const { history } = this.props;
+    const { auth, history } = this.props;
 
     try {
       const { headers } = await register(values);
       const token = headers['x-auth-token'];
-      localStorage.setItem('token', token);
+      auth.setToken(token);
       history.push('/');
     } catch (error) {
       const { response } = error;
@@ -90,4 +91,4 @@ class Register extends Component {
   }
 }
 
-export default Register;
+export default withAuth(Register);
