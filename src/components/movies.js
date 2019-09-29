@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { getGenres } from '../services/genre';
-import { deleteMovie, getMovies } from '../services/movie';
+import { getGenres } from '../services/genreService';
+import { deleteMovie, getMovies } from '../services/movieService';
 import { orderBy, paginate } from '../utils/lodash';
 import Like from './common/like';
 import ListGroup from './common/listGroup';

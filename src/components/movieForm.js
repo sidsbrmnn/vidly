@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { number, object, string } from 'yup';
-import { getGenres } from '../services/genre';
-import { getMovie, saveMovie } from '../services/movie';
+import { getGenres } from '../services/genreService';
+import { getMovie, saveMovie } from '../services/movieService';
 import Field from './common/field';
 import Form from './common/form';
 import Select from './common/select';

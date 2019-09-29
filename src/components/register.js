@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { object, string } from 'yup';
 import Field from './common/field';
 import Form from './common/form';
-import { register } from '../services/user';
+import { register } from '../services/userService';
 
 class Register extends Component {
   schema = object().shape({
