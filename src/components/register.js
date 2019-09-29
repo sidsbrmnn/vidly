@@ -12,8 +12,13 @@ class Register extends Component {
   });
 
   handleSubmit = async (values, { setFieldError, setSubmitting }) => {
+    const { history } = this.props;
+
     try {
-      await register(values);
+      const { headers } = await register(values);
+      const token = headers['x-auth-token'];
+      localStorage.setItem('token', token);
+      history.push('/');
     } catch (error) {
       const { response } = error;
       if (response && response.status === 400) {

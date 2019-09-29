@@ -11,8 +11,12 @@ class Login extends Component {
   });
 
   handleSubmit = async (values, { setFieldError, setSubmitting }) => {
+    const { history } = this.props;
+
     try {
-      await login(values);
+      const { data: token } = await login(values);
+      localStorage.setItem('token', token);
+      history.push('/');
     } catch (error) {
       const { response } = error;
       if (response && response.status === 400) {
