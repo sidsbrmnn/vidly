@@ -12,12 +12,12 @@ class Login extends Component {
   });
 
   handleSubmit = async (values, { setFieldError, setSubmitting }) => {
-    const { auth, history } = this.props;
+    const { auth, history, location } = this.props;
 
     try {
       const { data: token } = await login(values);
       auth.setToken(token);
-      history.push('/');
+      history.push(location.state?.referrer || '/');
     } catch (error) {
       const { response } = error;
       if (response && response.status === 400) {

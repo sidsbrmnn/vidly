@@ -11,7 +11,14 @@ const ProtectedRoute = ({ auth, component: C, path, render, ...rest }) => {
           return C ? <C {...props} /> : render(props);
         }
 
-        return <Redirect to="/login" />;
+        return (
+          <Redirect
+            to={{
+              pathname: '/login',
+              state: { referrer: props.location.pathname },
+            }}
+          />
+        );
       }}
       {...rest}
     />
