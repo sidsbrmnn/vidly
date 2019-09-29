@@ -8,6 +8,7 @@ import ListGroup from './common/listGroup';
 import Pagination from './common/pagination';
 import SearchBox from './common/searchBox';
 import Table from './common/table';
+import { withAuth } from './common/auth';
 
 const ALL_GENRES = {
   _id: (Math.random() * 10e16).toString(),
@@ -42,14 +43,21 @@ class Movies extends Component {
     },
     {
       key: 'delete',
-      content: movie => (
-        <button
-          onClick={() => this.handleDelete(movie)}
-          className="btn btn-danger btn-sm"
-        >
-          Delete
-        </button>
-      ),
+      content: movie => {
+        const { auth } = this.props;
+        if (auth.payload && auth.payload.isAdmin) {
+          return (
+            <button
+              onClick={() => this.handleDelete(movie)}
+              className="btn btn-danger btn-sm"
+            >
+              Delete
+            </button>
+          );
+        }
+
+        return null;
+      },
     },
   ];
 
@@ -117,6 +125,7 @@ class Movies extends Component {
   };
 
   render() {
+    const { auth } = this.props;
     const {
       movies,
       genres,
@@ -143,11 +152,13 @@ class Movies extends Component {
           </div>
           <div className="col-12 col-md-9 mt-4 mt-md-0 space-y-3">
             <SearchBox value={searchQuery} onChange={this.handleSearch} />
-            <div className="d-sm-flex flex-row-reverse justify-content-between align-items-center space-y-3 space-y-sm-0">
-              <Link to="/movies/new" className="btn btn-primary">
-                New Movie
-              </Link>
+            <div className="d-sm-flex flex-col-reverse justify-content-between align-items-center space-y-3 space-y-sm-0">
               <div>Showing {filteredCount} movies in the database.</div>
+              {auth.payload && auth.payload.isAdmin && (
+                <Link to="/movies/new" className="btn btn-primary">
+                  New Movie
+                </Link>
+              )}
             </div>
             <div>
               <Table
@@ -170,4 +181,4 @@ class Movies extends Component {
   }
 }
 
-export default Movies;
+export default withAuth(Movies);
