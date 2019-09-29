@@ -2,19 +2,25 @@ import React, { Component } from 'react';
 import { object, string } from 'yup';
 import Field from './common/field';
 import Form from './common/form';
+import { login } from '../services/user';
 
 class Login extends Component {
   schema = object().shape({
-    username: string().email().required(),
+    email: string().email().required(),
     password: string().required(),
   });
 
-  handleSubmit = values => {
-    console.log('form:', values);
-    setTimeout(() => {
-      const { history } = this.props;
-      history.push('/');
-    }, 1000);
+  handleSubmit = async (values, { setFieldError, setSubmitting }) => {
+    try {
+      await login(values);
+    } catch (error) {
+      const { response } = error;
+      if (response && response.status === 400) {
+        setFieldError('password', response.data);
+      }
+
+      setSubmitting(false);
+    }
   };
 
   render() {
@@ -24,7 +30,7 @@ class Login extends Component {
 
         <Form
           className="mt-4"
-          initialValues={{ username: '', password: '' }}
+          initialValues={{ email: '', password: '' }}
           onSubmit={this.handleSubmit}
           validationSchema={this.schema}
         >
@@ -33,10 +39,10 @@ class Login extends Component {
               <div className="form-row">
                 <Field
                   type="email"
-                  name="username"
-                  label="Username"
+                  name="email"
+                  label="Email address"
                   className="col-md-6 col-lg-4"
-                  placeholder="Username"
+                  placeholder="Email address"
                   required
                   autoFocus
                   autoComplete="email"

@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { object, string } from 'yup';
 import Field from './common/field';
 import Form from './common/form';
+import { register } from '../services/user';
 
 class Register extends Component {
   schema = object().shape({
@@ -10,12 +11,16 @@ class Register extends Component {
     password: string().required(),
   });
 
-  handleSubmit = values => {
-    const { history } = this.props;
-    console.log('form:', values);
-    setTimeout(() => {
-      history.push('/');
-    }, 1000);
+  handleSubmit = async (values, { setFieldError, setSubmitting }) => {
+    try {
+      await register(values);
+    } catch (error) {
+      const { response } = error;
+      if (response && response.status === 400) {
+        setFieldError('email', response.data);
+      }
+      setSubmitting(false);
+    }
   };
 
   render() {
