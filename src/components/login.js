@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import { object, string } from 'yup';
 import { withAuth } from './common/auth';
 import Field from './common/field';
@@ -29,6 +30,12 @@ class Login extends Component {
   };
 
   render() {
+    const { auth } = this.props;
+
+    if (auth.payload) {
+      return <Redirect to="/" />;
+    }
+
     return (
       <section className="py-5">
         <h1>Login</h1>

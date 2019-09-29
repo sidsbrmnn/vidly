@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import { Redirect } from 'react-router-dom';
 import { object, string } from 'yup';
 import Field from './common/field';
 import Form from './common/form';
@@ -30,6 +31,12 @@ class Register extends Component {
   };
 
   render() {
+    const { auth } = this.props;
+
+    if (auth.payload) {
+      return <Redirect to="/" />;
+    }
+
     return (
       <section className="py-5">
         <h1>Register</h1>
