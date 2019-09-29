@@ -1,6 +1,5 @@
 import http from './httpService';
 
-export async function login(user) {
-  const res = await http.post('/auth', user);
-  return res.data;
+export function login(user) {
+  return http.post('/auth', user);
 }

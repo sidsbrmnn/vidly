@@ -30,7 +30,7 @@ class MovieForm extends Component {
   }
 
   populateGenres = async () => {
-    const genres = await getGenres();
+    const { data: genres } = await getGenres();
     this.setState({ genres });
   };
 
@@ -41,7 +41,7 @@ class MovieForm extends Component {
     if (movieId === 'new') return;
 
     try {
-      const movie = await getMovie(movieId);
+      const { data: movie } = await getMovie(movieId);
       this.setState({ data: this.mapToViewModel(movie) });
     } catch (error) {
       if (error.response && error.response.status === 404) {

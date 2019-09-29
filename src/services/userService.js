@@ -1,6 +1,5 @@
 import http from './httpService';
 
-export async function register(user) {
-  const res = await http.post('/users', user);
-  return res.data;
+export function register(user) {
+  return http.post('/users', user);
 }

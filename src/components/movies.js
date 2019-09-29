@@ -54,8 +54,8 @@ class Movies extends Component {
   ];
 
   async componentDidMount() {
-    const movies = await getMovies();
-    const genres = await getGenres();
+    const { data: movies } = await getMovies();
+    const { data: genres } = await getGenres();
     genres.unshift(ALL_GENRES);
     this.setState({ movies, genres, selectedGenre: ALL_GENRES });
   }
