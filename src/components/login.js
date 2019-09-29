@@ -16,7 +16,7 @@ class Login extends Component {
     } catch (error) {
       const { response } = error;
       if (response && response.status === 400) {
-        setFieldError('password', response.data);
+        setFieldError('email', response.data);
       }
 
       setSubmitting(false);
