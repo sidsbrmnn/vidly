@@ -4,15 +4,13 @@ const http = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
 });
 
-// http.interceptors.request.use(config => {
-//   config.headers.set('Content-Type', 'application/json');
+http.interceptors.request.use(config => {
+  const token = localStorage.getItem('token');
+  if (token) {
+    config.headers['X-Auth-Token'] = token;
+  }
 
-//   const token = localStorage.getItem('token');
-//   if (token) {
-//     config.headers.set('X-Auth-Token', token);
-//   }
-
-//   return config;
-// });
+  return config;
+});
 
 export default http;
