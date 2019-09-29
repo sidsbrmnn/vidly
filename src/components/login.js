@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { object, string } from 'yup';
 import Field from './common/field';
 import Form from './common/form';
-import { login } from '../services/user';
+import { login } from '../services/auth';
 
 class Login extends Component {
   schema = object().shape({
