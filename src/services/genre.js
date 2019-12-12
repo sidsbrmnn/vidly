@@ -1,9 +1,9 @@
-import http from "./http";
+import http from './http';
 
-const apiEndpoint = "/genres";
+const apiEndpoint = '/genres';
 
 export function getGenres() {
-  return http.get(apiEndpoint);
+    return http.get(apiEndpoint);
 }
 
 export default { getGenres };
