@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 /**
  *
  * @type {import("react").FunctionComponent}
@@ -10,6 +12,10 @@ const Header = ({ children }) => {
       </div>
     </header>
   );
+};
+
+Header.propTypes = {
+  children: PropTypes.element.isRequired,
 };
 
 export default Header;
