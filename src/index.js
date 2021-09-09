@@ -1,8 +1,3 @@
-import "bootstrap/dist/css/bootstrap.css";
-import "bootstrap/dist/js/bootstrap";
-import "font-awesome/css/font-awesome.css";
-import "jquery/dist/jquery.slim";
-import "popper.js/dist/umd/popper";
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
