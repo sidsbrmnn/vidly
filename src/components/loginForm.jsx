@@ -1,7 +1,7 @@
 import Joi from "joi-browser";
 import React from "react";
 import { Redirect } from "react-router-dom";
-import auth from "../services/auth";
+import * as auth from "../services/auth";
 import Form from "./common/form";
 
 class LoginForm extends Form {
@@ -34,7 +34,7 @@ class LoginForm extends Form {
   render() {
     if (auth.getCurrentUser()) return <Redirect to="/" />;
     return (
-      <div className="row py-5">
+      <div className="py-5 row">
         <div className="col-lg-6 col-12">
           <h3>Login</h3>
           <form onSubmit={this.handleSubmit}>

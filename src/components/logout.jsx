@@ -1,5 +1,5 @@
 import { Component } from "react";
-import auth from "../services/auth";
+import * as auth from "../services/auth";
 
 class Logout extends Component {
   state = {};

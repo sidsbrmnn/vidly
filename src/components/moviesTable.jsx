@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import auth from "../services/auth";
+import * as auth from "../services/auth";
 import Like from "./common/like";
 import Table from "./common/table";
 
