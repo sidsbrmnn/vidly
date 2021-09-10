@@ -1,10 +1,6 @@
-import PropTypes from "prop-types";
+import { FunctionComponent } from "react";
 
-/**
- *
- * @type {import("react").FunctionComponent}
- */
-const Header = ({ children }) => {
+const Header: FunctionComponent = ({ children }) => {
   return (
     <header>
       <div className="px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
@@ -12,10 +8,6 @@ const Header = ({ children }) => {
       </div>
     </header>
   );
-};
-
-Header.propTypes = {
-  children: PropTypes.element.isRequired,
 };
 
 export default Header;

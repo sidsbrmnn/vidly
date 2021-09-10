@@ -1,11 +1,8 @@
+import { FunctionComponent } from "react";
 import Header from "../components/header";
 import Navbar from "../components/navbar";
 
-/**
- *
- * @type {import("react").FunctionComponent}
- */
-const MoviesPage = () => {
+const MoviesPage: FunctionComponent = () => {
   return (
     <>
       <Navbar />
