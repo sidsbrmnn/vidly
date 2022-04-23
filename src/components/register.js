@@ -1,21 +1,32 @@
+import { yupResolver } from '@hookform/resolvers/yup';
+import { FormProvider, useForm } from 'react-hook-form';
 import { Redirect, useHistory } from 'react-router-dom';
 import { object, string } from 'yup';
 import { register } from '../services/userService';
 import { useAuth } from './common/auth';
 import Field from './common/field';
-import Form from './common/form';
+
+const schema = object().shape({
+  name: string().required().label('Full name'),
+  email: string().email().required().label('Email address'),
+  password: string().required().label('Password'),
+});
 
 const Register = () => {
   const auth = useAuth();
   const history = useHistory();
 
-  const schema = object().shape({
-    name: string().required(),
-    email: string().email().required(),
-    password: string().required(),
+  const methods = useForm({
+    resolver: yupResolver(schema),
+    mode: 'onChange',
   });
+  const {
+    formState: { isSubmitting },
+    handleSubmit,
+    setError,
+  } = methods;
 
-  const handleSubmit = async (values, { setFieldError, setSubmitting }) => {
+  const onSubmit = async values => {
     try {
       const { headers } = await register(values);
       const token = headers['x-auth-token'];
@@ -24,9 +35,8 @@ const Register = () => {
     } catch (error) {
       const { response } = error;
       if (response && response.status === 400) {
-        setFieldError('email', response.data);
+        setError('email', { message: response.data });
       }
-      setSubmitting(false);
     }
   };
 
@@ -38,58 +48,51 @@ const Register = () => {
     <section className="py-5">
       <h1>Register</h1>
 
-      <Form
-        className="mt-4"
-        initialValues={{ name: '', email: '', password: '' }}
-        onSubmit={handleSubmit}
-        validationSchema={schema}
-      >
-        {({ isSubmitting }) => (
-          <>
-            <div className="form-row">
-              <Field
-                type="text"
-                name="name"
-                label="Full name"
-                className="col-md-6 col-lg-4"
-                placeholder="John Doe"
-                required
-                autoFocus
-                autoComplete="name"
-              />
-            </div>
-            <div className="form-row">
-              <Field
-                type="email"
-                name="email"
-                label="Email address"
-                className="col-md-6 col-lg-4"
-                placeholder="johndoe@example.com"
-                required
-                autoComplete="email"
-              />
-            </div>
-            <div className="form-row">
-              <Field
-                type="password"
-                name="password"
-                label="Password"
-                className="col-md-6 col-lg-4"
-                placeholder="********"
-                required
-                autoComplete="new-password"
-              />
-            </div>
-            <button
-              type="submit"
-              className="btn btn-primary"
-              disabled={isSubmitting}
-            >
-              Register
-            </button>
-          </>
-        )}
-      </Form>
+      <FormProvider {...methods}>
+        <form className="mt-4" onSubmit={handleSubmit(onSubmit)} noValidate>
+          <div className="form-row">
+            <Field
+              type="text"
+              name="name"
+              label="Full name"
+              className="col-md-6 col-lg-4"
+              placeholder="John Doe"
+              required
+              autoFocus
+              autoComplete="name"
+            />
+          </div>
+          <div className="form-row">
+            <Field
+              type="email"
+              name="email"
+              label="Email address"
+              className="col-md-6 col-lg-4"
+              placeholder="johndoe@example.com"
+              required
+              autoComplete="email"
+            />
+          </div>
+          <div className="form-row">
+            <Field
+              type="password"
+              name="password"
+              label="Password"
+              className="col-md-6 col-lg-4"
+              placeholder="********"
+              required
+              autoComplete="new-password"
+            />
+          </div>
+          <button
+            type="submit"
+            className="btn btn-primary"
+            disabled={isSubmitting}
+          >
+            Register
+          </button>
+        </form>
+      </FormProvider>
     </section>
   );
 };
