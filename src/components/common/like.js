@@ -1,11 +1,11 @@
 import { cx } from '../../utils/cx';
 
-const Like = props => {
+const Like = ({ onClick, liked }) => {
   return (
     <i
-      onClick={props.onClick}
+      onClick={onClick}
       style={{ cursor: 'pointer' }}
-      className={cx('fa', props.liked ? 'fa-heart' : 'fa-heart-o')}
+      className={cx('fa', liked ? 'fa-heart' : 'fa-heart-o')}
       aria-hidden="true"
     />
   );

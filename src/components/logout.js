@@ -1,16 +1,16 @@
-import { Component } from 'react';
+import { useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { withAuth } from './common/auth';
 
-class Logout extends Component {
-  componentDidMount() {
-    const { auth, history } = this.props;
+const Logout = ({ auth }) => {
+  const history = useHistory();
+
+  useEffect(() => {
     auth.removeToken();
     history.push('/');
-  }
+  }, [auth, history]);
 
-  render() {
-    return null;
-  }
-}
+  return null;
+};
 
 export default withAuth(Logout);
