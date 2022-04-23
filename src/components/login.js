@@ -1,20 +1,21 @@
-import { Component } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory, useLocation } from 'react-router-dom';
 import { object, string } from 'yup';
-import { withAuth } from './common/auth';
+import { login } from '../services/authService';
+import { useAuth } from './common/auth';
 import Field from './common/field';
 import Form from './common/form';
-import { login } from '../services/authService';
 
-class Login extends Component {
-  schema = object().shape({
+const Login = () => {
+  const auth = useAuth();
+  const history = useHistory();
+  const location = useLocation();
+
+  const schema = object().shape({
     email: string().email().required(),
     password: string().required(),
   });
 
-  handleSubmit = async (values, { setFieldError, setSubmitting }) => {
-    const { auth, history, location } = this.props;
-
+  const handleSubmit = async (values, { setFieldError, setSubmitting }) => {
     try {
       const { data: token } = await login(values);
       auth.setToken(token);
@@ -29,61 +30,57 @@ class Login extends Component {
     }
   };
 
-  render() {
-    const { auth } = this.props;
-
-    if (auth.payload) {
-      return <Redirect to="/" />;
-    }
-
-    return (
-      <section className="py-5">
-        <h1>Login</h1>
-
-        <Form
-          className="mt-4"
-          initialValues={{ email: '', password: '' }}
-          onSubmit={this.handleSubmit}
-          validationSchema={this.schema}
-        >
-          {({ isSubmitting }) => (
-            <>
-              <div className="form-row">
-                <Field
-                  type="email"
-                  name="email"
-                  label="Email address"
-                  className="col-md-6 col-lg-4"
-                  placeholder="Email address"
-                  required
-                  autoFocus
-                  autoComplete="email"
-                />
-              </div>
-              <div className="form-row">
-                <Field
-                  type="password"
-                  name="password"
-                  label="Password"
-                  className="col-md-6 col-lg-4"
-                  placeholder="Password"
-                  required
-                  autoComplete="current-password"
-                />
-              </div>
-              <button
-                type="submit"
-                className="btn btn-primary"
-                disabled={isSubmitting}
-              >
-                Login
-              </button>
-            </>
-          )}
-        </Form>
-      </section>
-    );
+  if (auth.payload) {
+    return <Redirect to="/" />;
   }
-}
 
-export default withAuth(Login);
+  return (
+    <section className="py-5">
+      <h1>Login</h1>
+
+      <Form
+        className="mt-4"
+        initialValues={{ email: '', password: '' }}
+        onSubmit={handleSubmit}
+        validationSchema={schema}
+      >
+        {({ isSubmitting }) => (
+          <>
+            <div className="form-row">
+              <Field
+                type="email"
+                name="email"
+                label="Email address"
+                className="col-md-6 col-lg-4"
+                placeholder="Email address"
+                required
+                autoFocus
+                autoComplete="email"
+              />
+            </div>
+            <div className="form-row">
+              <Field
+                type="password"
+                name="password"
+                label="Password"
+                className="col-md-6 col-lg-4"
+                placeholder="Password"
+                required
+                autoComplete="current-password"
+              />
+            </div>
+            <button
+              type="submit"
+              className="btn btn-primary"
+              disabled={isSubmitting}
+            >
+              Login
+            </button>
+          </>
+        )}
+      </Form>
+    </section>
+  );
+};
+
+export default Login;
