@@ -1,54 +1,48 @@
 import jwtDecode from 'jwt-decode';
-import React, { Component } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 export const AuthContext = React.createContext();
 
-export class AuthProvider extends Component {
-  state = {
-    token: null,
-    payload: null,
-  };
+export const AuthProvider = ({ children }) => {
+  const [payload, setPayload] = useState(null);
 
-  componentDidMount() {
+  useEffect(() => {
     try {
       const token = localStorage.getItem('token');
       const payload = token ? jwtDecode(token) : null;
-      this.setState({ token, payload });
+      setPayload(payload);
     } catch {
       localStorage.removeItem('token');
-      this.setState({ token: null, payload: null });
+      setPayload(null);
     }
-  }
+  }, []);
 
-  setToken = token => {
+  const setToken = token => {
     localStorage.setItem('token', token);
     const payload = jwtDecode(token);
-    this.setState({ token, payload });
+    setPayload(payload);
   };
 
-  removeToken = () => {
+  const removeToken = () => {
     localStorage.removeItem('token');
-    this.setState({ token: null, payload: null });
+    setPayload(null);
   };
 
-  render() {
-    const { token, payload } = this.state;
-    const { children } = this.props;
+  return (
+    <AuthContext.Provider value={{ payload, setToken, removeToken }}>
+      {children}
+    </AuthContext.Provider>
+  );
+};
 
-    const contextValue = {
-      token,
-      payload,
-      setToken: this.setToken,
-      removeToken: this.removeToken,
-    };
-
-    return (
-      <AuthContext.Provider value={contextValue}>
-        {children}
-      </AuthContext.Provider>
-    );
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error('useAuth must be used within an AuthProvider');
   }
-}
+
+  return context;
+};
 
 export const withAuth = Component => props => {
   return (

@@ -2,9 +2,10 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { cx } from '../utils/cx';
-import { withAuth } from './common/auth';
+import { useAuth } from './common/auth';
 
-const Navbar = ({ auth, links = [] }) => {
+const Navbar = ({ links = [] }) => {
+  const auth = useAuth();
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleNavbar = () => setIsOpen(prevState => !prevState);
@@ -85,4 +86,4 @@ Navbar.propTypes = {
   ),
 };
 
-export default withAuth(Navbar);
+export default Navbar;

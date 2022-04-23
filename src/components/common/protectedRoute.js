@@ -1,7 +1,9 @@
 import { Route, Redirect } from 'react-router-dom';
-import { withAuth } from './auth';
+import { useAuth } from './auth';
 
-const ProtectedRoute = ({ auth, component: C, path, render, ...rest }) => {
+const ProtectedRoute = ({ component: C, path, render, ...rest }) => {
+  const auth = useAuth();
+
   return (
     <Route
       to={path}
@@ -24,4 +26,4 @@ const ProtectedRoute = ({ auth, component: C, path, render, ...rest }) => {
   );
 };
 
-export default withAuth(ProtectedRoute);
+export default ProtectedRoute;

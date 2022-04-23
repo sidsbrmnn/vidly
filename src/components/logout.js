@@ -1,8 +1,9 @@
 import { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { withAuth } from './common/auth';
+import { useAuth } from './common/auth';
 
-const Logout = ({ auth }) => {
+const Logout = () => {
+  const auth = useAuth();
   const history = useHistory();
 
   useEffect(() => {
@@ -13,4 +14,4 @@ const Logout = ({ auth }) => {
   return null;
 };
 
-export default withAuth(Logout);
+export default Logout;
