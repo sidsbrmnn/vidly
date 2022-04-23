@@ -1,4 +1,3 @@
-import React from 'react';
 import { get } from '../../utils/lodash';
 
 const TableBody = ({ data, columns }) => {

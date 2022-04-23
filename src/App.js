@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import {
   Redirect,
   Route,
@@ -6,6 +6,7 @@ import {
   Switch,
 } from 'react-router-dom';
 import { AuthProvider } from './components/common/auth';
+import ProtectedRoute from './components/common/protectedRoute';
 import Customers from './components/customers';
 import Login from './components/login';
 import Logout from './components/logout';
@@ -16,7 +17,6 @@ import NotFound from './components/notFound';
 import Register from './components/register';
 import Rentals from './components/rentals';
 import './App.css';
-import ProtectedRoute from './components/common/protectedRoute';
 
 class App extends Component {
   navLinks = [

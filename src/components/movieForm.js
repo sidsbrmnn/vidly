@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import { Component, Fragment } from 'react';
 import { number, object, string } from 'yup';
 import { getGenres } from '../services/genreService';
 import { getMovie, saveMovie } from '../services/movieService';

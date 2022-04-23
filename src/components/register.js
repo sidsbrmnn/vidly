@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import { Component, Fragment } from 'react';
 import { Redirect } from 'react-router-dom';
 import { object, string } from 'yup';
 import Field from './common/field';
