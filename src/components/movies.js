@@ -1,14 +1,15 @@
+import orderBy from 'lodash/orderBy';
 import { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { getGenres } from '../services/genreService';
 import { deleteMovie, getMovies } from '../services/movieService';
-import { orderBy, paginate } from '../utils/lodash';
+import paginate from '../utils/paginate';
+import { withAuth } from './common/auth';
 import Like from './common/like';
 import ListGroup from './common/listGroup';
 import Pagination from './common/pagination';
 import SearchBox from './common/searchBox';
 import Table from './common/table';
-import { withAuth } from './common/auth';
 
 const ALL_GENRES = {
   _id: (Math.random() * 10e16).toString(),

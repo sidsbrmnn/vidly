@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { cx } from '../../utils/cx';
-import { range } from '../../utils/lodash';
+import range from 'lodash/range';
 
 const Pagination = ({ itemsCount, pageSize, currentPage, onPageChange }) => {
   const pageCount = Math.ceil(itemsCount / pageSize);

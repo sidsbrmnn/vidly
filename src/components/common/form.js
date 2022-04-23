@@ -1,24 +1,8 @@
+import isEqual from 'lodash/isEqual';
 import PropTypes from 'prop-types';
 import React, { Children, Component, createContext } from 'react';
 
 export const FormContext = createContext();
-
-const isEqual = (a, b) => {
-  if (a === b) return true;
-  if (a === null || b === null) return false;
-  if (typeof a !== 'object' || typeof b !== 'object') return false;
-  if (Object.keys(a).length !== Object.keys(b).length) return false;
-
-  for (const prop in a) {
-    if (b.hasOwnProperty(prop)) {
-      if (!isEqual(a[prop], b[prop])) return false;
-    } else {
-      return false;
-    }
-  }
-
-  return true;
-};
 
 class Form extends Component {
   initialValues = {};

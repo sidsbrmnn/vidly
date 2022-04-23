@@ -1,4 +1,4 @@
-import { get } from '../../utils/lodash';
+import get from 'lodash/get';
 
 const TableBody = ({ data, columns }) => {
   return (
