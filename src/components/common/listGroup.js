@@ -3,9 +3,9 @@ import React from 'react';
 import { cx } from '../../utils/cx';
 
 const ListGroup = ({
-  items,
-  keyProperty,
-  valueProperty,
+  items = [],
+  keyProperty = '_id',
+  valueProperty = 'name',
   selectedItem,
   onItemSelect,
 }) => {
@@ -27,13 +27,6 @@ const ListGroup = ({
       ))}
     </ul>
   );
-};
-
-ListGroup.defaultProps = {
-  items: [],
-  keyProperty: '_id',
-  valueProperty: 'name',
-  selectedItem: null,
 };
 
 ListGroup.propTypes = {

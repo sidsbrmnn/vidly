@@ -46,16 +46,12 @@ class FieldInner extends Component {
   }
 }
 
-const Field = props => {
+const Field = ({ type = 'text', ...rest }) => {
   return (
     <FormContext.Consumer>
-      {context => <FieldInner {...props} context={context} />}
+      {context => <FieldInner type={type} {...rest} context={context} />}
     </FormContext.Consumer>
   );
-};
-
-Field.defaultProps = {
-  type: 'text',
 };
 
 Field.propTypes = {

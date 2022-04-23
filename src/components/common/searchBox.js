@@ -17,10 +17,6 @@ const SearchBox = ({ className, onChange, value }) => {
   );
 };
 
-SearchBox.defaultProps = {
-  value: '',
-};
-
 SearchBox.propTypes = {
   className: PropTypes.string,
   onChange: PropTypes.func,
