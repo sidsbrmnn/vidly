@@ -1,7 +1,7 @@
+import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { cx } from '../utils/cx';
 import { useAuth } from './common/auth';
 
 const Navbar = ({ links = [] }) => {
@@ -30,7 +30,7 @@ const Navbar = ({ links = [] }) => {
 
         <div
           id="navbarSupportedContent"
-          className={cx('navbar-collapse collapse', isOpen && 'show')}
+          className={clsx('navbar-collapse collapse', isOpen && 'show')}
         >
           <ul className="navbar-nav mr-auto">
             {links.map(link => (

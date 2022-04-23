@@ -1,6 +1,6 @@
-import PropTypes from 'prop-types';
-import { cx } from '../../utils/cx';
+import clsx from 'clsx';
 import range from 'lodash/range';
+import PropTypes from 'prop-types';
 
 const Pagination = ({ itemsCount, pageSize, currentPage, onPageChange }) => {
   const pageCount = Math.ceil(itemsCount / pageSize);
@@ -14,7 +14,7 @@ const Pagination = ({ itemsCount, pageSize, currentPage, onPageChange }) => {
         {pages.map(page => (
           <li
             key={page}
-            className={cx('page-item', page === currentPage && 'active')}
+            className={clsx('page-item', page === currentPage && 'active')}
           >
             <button className="page-link" onClick={() => onPageChange(page)}>
               {page}

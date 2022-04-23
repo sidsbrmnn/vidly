@@ -1,5 +1,5 @@
+import clsx from 'clsx';
 import PropTypes from 'prop-types';
-import { cx } from '../../utils/cx';
 
 const ListGroup = ({
   items = [],
@@ -13,7 +13,7 @@ const ListGroup = ({
       {items.map(item => (
         <li
           key={item[keyProperty]}
-          className={cx(
+          className={clsx(
             'list-group-item',
             selectedItem &&
               item[keyProperty] === selectedItem[keyProperty] &&

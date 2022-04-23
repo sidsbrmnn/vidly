@@ -1,12 +1,12 @@
+import clsx from 'clsx';
 import PropTypes from 'prop-types';
-import { cx } from '../../utils/cx';
 
 const SearchBox = ({ className, onChange, value }) => {
   return (
     <input
       type="text"
       name="query"
-      className={cx('form-control', className)}
+      className={clsx('form-control', className)}
       placeholder="Search..."
       value={value || ''}
       onChange={onChange ? e => onChange(e.currentTarget.value) : undefined}

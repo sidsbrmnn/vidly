@@ -1,6 +1,6 @@
+import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { useFormContext } from 'react-hook-form';
-import { cx } from '../../utils/cx';
 
 const Field = ({ className, type, name, label, context, ...rest }) => {
   const {
@@ -12,13 +12,13 @@ const Field = ({ className, type, name, label, context, ...rest }) => {
   const C = isSelect ? 'select' : 'input';
 
   return (
-    <div className={cx('form-group', className)}>
+    <div className={clsx('form-group', className)}>
       <label htmlFor={name}>{label}</label>
       <C
         {...(isSelect ? {} : { type })}
         name={name}
         id={name}
-        className={cx('form-control', errors[name] && 'is-invalid')}
+        className={clsx('form-control', errors[name] && 'is-invalid')}
         {...register(name)}
         {...rest}
       />

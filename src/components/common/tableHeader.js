@@ -1,4 +1,4 @@
-import { cx } from '../../utils/cx';
+import clsx from 'clsx';
 
 const TableHeader = ({ columns, sortColumn, onSort }) => {
   const handleSort = path => {
@@ -24,7 +24,7 @@ const TableHeader = ({ columns, sortColumn, onSort }) => {
             {column.label}
             {column.path === sortColumn.path && (
               <i
-                className={cx(
+                className={clsx(
                   'ml-2 fa',
                   sortColumn.order === 'asc' ? 'fa-sort-asc' : 'fa-sort-desc'
                 )}
