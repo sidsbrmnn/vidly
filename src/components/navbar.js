@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { Component, Fragment } from 'react';
+import { Component } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { cx } from '../utils/cx';
 import { withAuth } from './common/auth';
@@ -51,7 +51,7 @@ class Navbar extends Component {
 
             <ul className="navbar-nav ml-auto">
               {auth.payload ? (
-                <Fragment>
+                <>
                   <li className="nav-item">
                     <NavLink to="/profile" className="nav-link">
                       {auth.payload.name}
@@ -62,9 +62,9 @@ class Navbar extends Component {
                       Logout
                     </NavLink>
                   </li>
-                </Fragment>
+                </>
               ) : (
-                <Fragment>
+                <>
                   <li className="nav-item">
                     <NavLink to="/login" className="nav-link">
                       Login
@@ -75,7 +75,7 @@ class Navbar extends Component {
                       Register
                     </NavLink>
                   </li>
-                </Fragment>
+                </>
               )}
             </ul>
           </div>

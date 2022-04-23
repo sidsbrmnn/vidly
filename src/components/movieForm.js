@@ -1,4 +1,4 @@
-import { Component, Fragment } from 'react';
+import { Component } from 'react';
 import { number, object, string } from 'yup';
 import { getGenres } from '../services/genreService';
 import { getMovie, saveMovie } from '../services/movieService';
@@ -85,7 +85,7 @@ class MovieForm extends Component {
           validationSchema={this.schema}
         >
           {({ isSubmitting }) => (
-            <Fragment>
+            <>
               <div className="form-row">
                 <Field
                   name="title"
@@ -130,7 +130,7 @@ class MovieForm extends Component {
               >
                 Save
               </button>
-            </Fragment>
+            </>
           )}
         </Form>
       </section>

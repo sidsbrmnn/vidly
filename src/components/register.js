@@ -1,4 +1,4 @@
-import { Component, Fragment } from 'react';
+import { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { object, string } from 'yup';
 import Field from './common/field';
@@ -48,7 +48,7 @@ class Register extends Component {
           validationSchema={this.schema}
         >
           {({ isSubmitting }) => (
-            <Fragment>
+            <>
               <div className="form-row">
                 <Field
                   type="text"
@@ -90,7 +90,7 @@ class Register extends Component {
               >
                 Register
               </button>
-            </Fragment>
+            </>
           )}
         </Form>
       </section>

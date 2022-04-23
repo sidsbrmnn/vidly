@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { object, string } from 'yup';
 import { withAuth } from './common/auth';
@@ -47,7 +47,7 @@ class Login extends Component {
           validationSchema={this.schema}
         >
           {({ isSubmitting }) => (
-            <React.Fragment>
+            <>
               <div className="form-row">
                 <Field
                   type="email"
@@ -78,7 +78,7 @@ class Login extends Component {
               >
                 Login
               </button>
-            </React.Fragment>
+            </>
           )}
         </Form>
       </section>
