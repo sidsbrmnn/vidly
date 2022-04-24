@@ -20,6 +20,7 @@ const ListGroup = ({
               'active'
           )}
           onClick={() => onItemSelect(item)}
+          role="button"
         >
           {item[valueProperty]}
         </li>
