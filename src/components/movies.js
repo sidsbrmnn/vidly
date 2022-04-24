@@ -137,7 +137,13 @@ class Movies extends Component {
       searchQuery,
     } = this.state;
 
-    if (movies.length === 0) return <p>There are no movies in the database.</p>;
+    if (movies.length === 0) {
+      return (
+        <section className="py-5">
+          <p>There are no movies in the database.</p>
+        </section>
+      );
+    }
 
     const { pagedMovies, filteredCount } = this.getPagedMovies();
 
