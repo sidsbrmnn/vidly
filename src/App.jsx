@@ -1,9 +1,4 @@
-import {
-  Navigate,
-  Route,
-  BrowserRouter as Router,
-  Routes,
-} from 'react-router-dom';
+import { Navigate, Route, BrowserRouter as Router, Routes } from 'react-router';
 import './App.css';
 import { AuthProvider, RequireAuth } from './components/common/Auth';
 import Customers from './components/Customers';
@@ -24,7 +19,7 @@ const App = () => {
   ];
 
   return (
-    <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+    <Router>
       <AuthProvider>
         <header>
           <Navbar links={navLinks} />

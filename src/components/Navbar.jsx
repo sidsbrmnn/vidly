@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router';
 import { useAuth } from './common/Auth';
 
 const Navbar = ({ links = [] }) => {

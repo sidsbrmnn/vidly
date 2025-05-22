@@ -1,6 +1,6 @@
 import orderBy from 'lodash/orderBy';
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { getGenres } from '../services/genreService';
 import { deleteMovie, getMovies } from '../services/movieService';
 import paginate from '../utils/paginate';

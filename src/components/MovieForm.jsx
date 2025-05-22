@@ -1,7 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useEffect, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router';
 import { number, object, string } from 'yup';
 import { getGenres } from '../services/genreService';
 import { getMovie, saveMovie } from '../services/movieService';
