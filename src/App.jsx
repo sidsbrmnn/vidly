@@ -1,4 +1,4 @@
-import { Navigate, Route, BrowserRouter as Router, Routes } from 'react-router';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router';
 import './App.css';
 import { AuthProvider, RequireAuth } from './components/common/Auth';
 import Customers from './components/Customers';
@@ -19,7 +19,7 @@ const App = () => {
   ];
 
   return (
-    <Router>
+    <BrowserRouter>
       <AuthProvider>
         <header>
           <Navbar links={navLinks} />
@@ -62,7 +62,7 @@ const App = () => {
           </Routes>
         </main>
       </AuthProvider>
-    </Router>
+    </BrowserRouter>
   );
 };
 
