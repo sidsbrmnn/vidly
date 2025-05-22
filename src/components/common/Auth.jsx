@@ -1,5 +1,6 @@
 import { jwtDecode } from 'jwt-decode';
 import React, { useContext, useEffect, useState } from 'react';
+import { Navigate, useLocation } from 'react-router-dom';
 
 export const AuthContext = React.createContext();
 
@@ -50,4 +51,15 @@ export const withAuth = Component => props => {
       {context => <Component {...props} auth={context} />}
     </AuthContext.Consumer>
   );
+};
+
+export const RequireAuth = ({ children }) => {
+  const auth = useAuth();
+  const location = useLocation();
+
+  if (!auth.payload) {
+    return <Navigate to="/login" state={{ referrer: location }} replace />;
+  }
+
+  return children;
 };

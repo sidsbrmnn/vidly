@@ -1,15 +1,15 @@
 import { useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from './common/Auth';
 
 const Logout = () => {
   const auth = useAuth();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   useEffect(() => {
     auth.removeToken();
-    history.push('/');
-  }, [auth, history]);
+    navigate('/', { replace: true });
+  }, [auth, navigate]);
 
   return null;
 };

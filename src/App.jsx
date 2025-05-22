@@ -1,12 +1,11 @@
 import {
-  Redirect,
+  Navigate,
   Route,
   BrowserRouter as Router,
-  Switch,
+  Routes,
 } from 'react-router-dom';
 import './App.css';
-import { AuthProvider } from './components/common/Auth';
-import ProtectedRoute from './components/common/ProtectedRoute';
+import { AuthProvider, RequireAuth } from './components/common/Auth';
 import Customers from './components/Customers';
 import Login from './components/Login';
 import Logout from './components/Logout';
@@ -25,29 +24,50 @@ const App = () => {
   ];
 
   return (
-    <AuthProvider>
-      <Router>
+    <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+      <AuthProvider>
         <header>
           <Navbar links={navLinks} />
         </header>
         <main className="container">
-          <Switch>
-            <ProtectedRoute path="/movies/:id" component={MovieForm} />
-            <Route path="/movies" component={Movies} />
-            <ProtectedRoute path="/customers" component={Customers} />
-            <ProtectedRoute path="/rentals" component={Rentals} />
-            <Route path="/not-found" component={NotFound} />
+          <Routes>
+            <Route
+              path="/movies/:id"
+              element={
+                <RequireAuth>
+                  <MovieForm />
+                </RequireAuth>
+              }
+            />
+            <Route path="/movies" element={<Movies />} />
+            <Route
+              path="/customers"
+              element={
+                <RequireAuth>
+                  <Customers />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/rentals"
+              element={
+                <RequireAuth>
+                  <Rentals />
+                </RequireAuth>
+              }
+            />
+            <Route path="/not-found" element={<NotFound />} />
 
-            <Route path="/login" component={Login} />
-            <Route path="/logout" component={Logout} />
-            <Route path="/register" component={Register} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/logout" element={<Logout />} />
+            <Route path="/register" element={<Register />} />
 
-            <Redirect from="/" exact to="/movies" />
-            <Redirect to="/not-found" />
-          </Switch>
+            <Route path="/" exact element={<Navigate to="/movies" replace />} />
+            <Route path="*" element={<Navigate to="/not-found" replace />} />
+          </Routes>
         </main>
-      </Router>
-    </AuthProvider>
+      </AuthProvider>
+    </Router>
   );
 };
 

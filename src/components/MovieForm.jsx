@@ -1,7 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useEffect, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
-import { useHistory, useRouteMatch } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { number, object, string } from 'yup';
 import { getGenres } from '../services/genreService';
 import { getMovie, saveMovie } from '../services/movieService';
@@ -25,8 +25,8 @@ const schema = object().shape({
 });
 
 const MovieForm = () => {
-  const history = useHistory();
-  const match = useRouteMatch();
+  const navigate = useNavigate();
+  const { id: movieId } = useParams();
 
   const [genres, setGenres] = useState([]);
   const [data, setData] = useState({
@@ -49,7 +49,6 @@ const MovieForm = () => {
   useEffect(() => {
     getGenres().then(({ data }) => setGenres(data));
 
-    const movieId = match.params.id;
     if (movieId === 'new') return;
 
     getMovie(movieId)
@@ -58,10 +57,10 @@ const MovieForm = () => {
       })
       .catch(error => {
         if (error.response && error.response.status === 404) {
-          history.replace('/not-found');
+          navigate('/not-found', { replace: true });
         }
       });
-  }, [history, match]);
+  }, [movieId, navigate]);
 
   const mapToViewModel = movie => ({
     _id: movie._id,
@@ -74,7 +73,7 @@ const MovieForm = () => {
   const onSubmit = async values => {
     try {
       await saveMovie({ _id: data._id, ...values });
-      history.push('/movies');
+      navigate('/movies');
     } catch (error) {
       console.log('Error saving movie:', error);
     }
@@ -82,7 +81,7 @@ const MovieForm = () => {
 
   return (
     <section className="py-5">
-      <h1>Movie Form {match.params.id}</h1>
+      <h1>{movieId === 'new' ? 'New Movie' : `Edit Movie - ${data.title}`}</h1>
       <FormProvider {...methods}>
         <form className="mt-4" onSubmit={handleSubmit(onSubmit)}>
           <div className="form-row">

@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { FormProvider, useForm } from 'react-hook-form';
-import { Redirect, useHistory } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { object, string } from 'yup';
 import { register } from '../services/userService';
 import { useAuth } from './common/Auth';
@@ -14,7 +14,7 @@ const schema = object().shape({
 
 const Register = () => {
   const auth = useAuth();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const methods = useForm({
     resolver: yupResolver(schema),
@@ -31,7 +31,7 @@ const Register = () => {
       const { headers } = await register(values);
       const token = headers['x-auth-token'];
       auth.setToken(token);
-      history.push('/');
+      navigate('/');
     } catch (error) {
       const { response } = error;
       if (response && response.status === 400) {
@@ -41,7 +41,7 @@ const Register = () => {
   };
 
   if (auth.payload) {
-    return <Redirect to="/" />;
+    return <Navigate to="/" replace />;
   }
 
   return (
