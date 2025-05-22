@@ -5,7 +5,7 @@ import { useHistory, useRouteMatch } from 'react-router-dom';
 import { number, object, string } from 'yup';
 import { getGenres } from '../services/genreService';
 import { getMovie, saveMovie } from '../services/movieService';
-import Field from './common/field';
+import Field from './common/Field';
 import Select from './common/select';
 
 const schema = object().shape({

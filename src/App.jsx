@@ -5,17 +5,17 @@ import {
   Switch,
 } from 'react-router-dom';
 import './App.css';
-import { AuthProvider } from './components/common/auth';
-import ProtectedRoute from './components/common/protectedRoute';
-import Customers from './components/customers';
-import Login from './components/login';
-import Logout from './components/logout';
-import MovieForm from './components/movieForm';
-import Movies from './components/movies';
-import Navbar from './components/navbar';
-import NotFound from './components/notFound';
-import Register from './components/register';
-import Rentals from './components/rentals';
+import { AuthProvider } from './components/common/Auth';
+import ProtectedRoute from './components/common/ProtectedRoute';
+import Customers from './components/Customers';
+import Login from './components/Login';
+import Logout from './components/Logout';
+import MovieForm from './components/MovieForm';
+import Movies from './components/Movies';
+import Navbar from './components/Navbar';
+import NotFound from './components/NotFound';
+import Register from './components/Register';
+import Rentals from './components/Rentals';
 
 const App = () => {
   const navLinks = [

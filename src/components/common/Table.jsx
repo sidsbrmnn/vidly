@@ -1,5 +1,5 @@
-import TableBody from './tableBody';
-import TableHeader from './tableHeader';
+import TableBody from './TableBody';
+import TableHeader from './TableHeader';
 
 const Table = ({ columns, data, sortColumn, onSort }) => {
   return (

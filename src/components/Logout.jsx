@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useAuth } from './common/auth';
+import { useAuth } from './common/Auth';
 
 const Logout = () => {
   const auth = useAuth();

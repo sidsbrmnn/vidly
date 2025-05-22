@@ -1,20 +1,20 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { FormProvider, useForm } from 'react-hook-form';
-import { Redirect, useHistory, useLocation } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import { object, string } from 'yup';
-import { login } from '../services/authService';
-import { useAuth } from './common/auth';
-import Field from './common/field';
+import { register } from '../services/userService';
+import { useAuth } from './common/Auth';
+import Field from './common/Field';
 
 const schema = object().shape({
+  name: string().required().label('Full name'),
   email: string().email().required().label('Email address'),
   password: string().required().label('Password'),
 });
 
-const Login = () => {
+const Register = () => {
   const auth = useAuth();
   const history = useHistory();
-  const location = useLocation();
 
   const methods = useForm({
     resolver: yupResolver(schema),
@@ -28,9 +28,10 @@ const Login = () => {
 
   const onSubmit = async values => {
     try {
-      const { data: token } = await login(values);
+      const { headers } = await register(values);
+      const token = headers['x-auth-token'];
       auth.setToken(token);
-      history.push(location.state?.referrer || '/');
+      history.push('/');
     } catch (error) {
       const { response } = error;
       if (response && response.status === 400) {
@@ -45,19 +46,30 @@ const Login = () => {
 
   return (
     <section className="py-5">
-      <h1>Login</h1>
+      <h1>Register</h1>
 
       <FormProvider {...methods}>
         <form className="mt-4" onSubmit={handleSubmit(onSubmit)} noValidate>
+          <div className="form-row">
+            <Field
+              type="text"
+              name="name"
+              label="Full name"
+              className="col-md-6 col-lg-4"
+              placeholder="John Doe"
+              required
+              autoFocus
+              autoComplete="name"
+            />
+          </div>
           <div className="form-row">
             <Field
               type="email"
               name="email"
               label="Email address"
               className="col-md-6 col-lg-4"
-              placeholder="Email address"
+              placeholder="johndoe@example.com"
               required
-              autoFocus
               autoComplete="email"
             />
           </div>
@@ -67,9 +79,9 @@ const Login = () => {
               name="password"
               label="Password"
               className="col-md-6 col-lg-4"
-              placeholder="Password"
+              placeholder="********"
               required
-              autoComplete="current-password"
+              autoComplete="new-password"
             />
           </div>
           <button
@@ -77,7 +89,7 @@ const Login = () => {
             className="btn btn-primary"
             disabled={isSubmitting}
           >
-            Login
+            Register
           </button>
         </form>
       </FormProvider>
@@ -85,4 +97,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;

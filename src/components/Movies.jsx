@@ -4,12 +4,12 @@ import { Link } from 'react-router-dom';
 import { getGenres } from '../services/genreService';
 import { deleteMovie, getMovies } from '../services/movieService';
 import paginate from '../utils/paginate';
-import { useAuth } from './common/auth';
-import Like from './common/like';
-import ListGroup from './common/listGroup';
-import Pagination from './common/pagination';
-import SearchBox from './common/searchBox';
-import Table from './common/table';
+import { useAuth } from './common/Auth';
+import Like from './common/Like';
+import ListGroup from './common/ListGroup';
+import Pagination from './common/Pagination';
+import SearchBox from './common/SearchBox';
+import Table from './common/Table';
 
 const ALL_GENRES = {
   _id: (Math.random() * 10e16).toString(),
