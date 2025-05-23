@@ -18,7 +18,7 @@ const ListGroup = ({
             'list-group-item list-group-item-action',
             selectedItem &&
               item[keyProperty] === selectedItem[keyProperty] &&
-              'active'
+              'active',
           )}
           onClick={() => onItemSelect(item)}
           aria-current={

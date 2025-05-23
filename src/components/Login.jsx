@@ -2,8 +2,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { FormProvider, useForm } from 'react-hook-form';
 import { Navigate, useLocation, useNavigate } from 'react-router';
 import { object, string } from 'yup';
+import { useAuth } from '../context/auth';
 import { login } from '../services/authService';
-import { useAuth } from './common/Auth';
 import Field from './common/Field';
 
 const schema = object().shape({

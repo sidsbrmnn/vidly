@@ -1,6 +1,5 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router';
 import './App.css';
-import { AuthProvider, RequireAuth } from './components/common/Auth';
 import Customers from './components/Customers';
 import Login from './components/Login';
 import Logout from './components/Logout';
@@ -10,6 +9,8 @@ import Navbar from './components/Navbar';
 import NotFound from './components/NotFound';
 import Register from './components/Register';
 import Rentals from './components/Rentals';
+import AuthProvider from './components/common/AuthProvider';
+import RequireAuth from './components/common/RequireAuth';
 
 const App = () => {
   const navLinks = [

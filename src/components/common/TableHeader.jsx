@@ -26,7 +26,7 @@ const TableHeader = ({ columns, sortColumn, onSort }) => {
               <i
                 className={clsx(
                   'ms-2 bi',
-                  sortColumn.order === 'asc' ? 'bi-sort-down' : 'bi-sort-up'
+                  sortColumn.order === 'asc' ? 'bi-sort-down' : 'bi-sort-up',
                 )}
                 aria-hidden="true"
               />

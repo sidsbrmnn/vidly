@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { Link, NavLink } from 'react-router';
-import { useAuth } from './common/Auth';
+import { useAuth } from '../context/auth';
 
 const Navbar = ({ links = [] }) => {
   const auth = useAuth();
@@ -82,7 +82,7 @@ Navbar.propTypes = {
     PropTypes.shape({
       path: PropTypes.string.isRequired,
       label: PropTypes.string.isRequired,
-    })
+    }),
   ),
 };
 

@@ -17,15 +17,7 @@ function getLabelClassName(type) {
   return 'form-label';
 }
 
-const Field = ({
-  className,
-  floating = false,
-  type,
-  name,
-  label,
-  context,
-  ...rest
-}) => {
+const Field = ({ className, floating = false, type, name, label, ...rest }) => {
   const {
     register,
     formState: { errors },
@@ -40,7 +32,7 @@ const Field = ({
       className={clsx(
         getClassName(type),
         floating && 'form-floating',
-        className
+        className,
       )}
     >
       {!isCheckOrRadio && (

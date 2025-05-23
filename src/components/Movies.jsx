@@ -1,10 +1,10 @@
 import orderBy from 'lodash/orderBy';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router';
+import { useAuth } from '../context/auth';
 import { getGenres } from '../services/genreService';
 import { deleteMovie, getMovies } from '../services/movieService';
 import paginate from '../utils/paginate';
-import { useAuth } from './common/Auth';
 import Like from './common/Like';
 import ListGroup from './common/ListGroup';
 import Pagination from './common/Pagination';
@@ -78,7 +78,7 @@ const Movies = () => {
 
   const handleLike = movie => {
     const updatedMovies = movies.map(m =>
-      m._id === movie._id ? { ...m, liked: !m.liked } : m
+      m._id === movie._id ? { ...m, liked: !m.liked } : m,
     );
     setMovies(updatedMovies);
   };
@@ -108,7 +108,7 @@ const Movies = () => {
         : movies;
     if (searchQuery) {
       filtered = filtered.filter(m =>
-        m.title.toLowerCase().includes(searchQuery.toLowerCase())
+        m.title.toLowerCase().includes(searchQuery.toLowerCase()),
       );
     }
     const sorted = orderBy(filtered, sortColumn.path, sortColumn.order);
