@@ -82,54 +82,51 @@ const MovieForm = () => {
   return (
     <section className="py-5">
       <h1>{movieId === 'new' ? 'New Movie' : `Edit Movie - ${data.title}`}</h1>
-      <FormProvider {...methods}>
-        <form className="mt-4" onSubmit={handleSubmit(onSubmit)}>
-          <div className="form-row">
-            <Field
-              name="title"
-              label="Title"
-              className="col-md-6 col-lg-4"
-              required
-              autoFocus
-            />
-          </div>
-          <div className="form-row">
-            <Select
-              name="genreId"
-              label="Genre"
-              className="col-md-6 col-lg-4"
-              required
-              options={genres}
-            />
-          </div>
-          <div className="form-row">
-            <Field
-              type="number"
-              name="numberInStock"
-              label="Number in stock"
-              className="col-md-6 col-lg-4"
-              required
-            />
-          </div>
-          <div className="form-row">
-            <Field
-              type="number"
-              name="dailyRentalRate"
-              label="Daily rental rate"
-              className="col-md-6 col-lg-4"
-              required
-            />
-          </div>
 
-          <button
-            type="submit"
-            className="btn btn-primary"
-            disabled={isSubmitting}
-          >
-            Save
-          </button>
-        </form>
-      </FormProvider>
+      <div className="row mt-4">
+        <div className="col-md-6 col-lg-4">
+          <FormProvider {...methods}>
+            <form onSubmit={handleSubmit(onSubmit)} noValidate>
+              <Field
+                name="title"
+                label="Title"
+                className="mb-3"
+                required
+                autoFocus
+              />
+              <Select
+                name="genreId"
+                label="Genre"
+                className="mb-3"
+                required
+                options={genres}
+              />
+              <Field
+                type="number"
+                name="numberInStock"
+                label="Number in stock"
+                className="mb-3"
+                required
+              />
+              <Field
+                type="number"
+                name="dailyRentalRate"
+                label="Daily rental rate"
+                className="mb-3"
+                required
+              />
+
+              <button
+                type="submit"
+                className="btn btn-primary"
+                disabled={isSubmitting}
+              >
+                Save
+              </button>
+            </form>
+          </FormProvider>
+        </div>
+      </div>
     </section>
   );
 };

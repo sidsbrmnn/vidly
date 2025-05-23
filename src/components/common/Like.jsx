@@ -5,7 +5,7 @@ const Like = ({ onClick, liked }) => {
     <i
       onClick={onClick}
       style={{ cursor: 'pointer' }}
-      className={clsx('fa', liked ? 'fa-heart' : 'fa-heart-o')}
+      className={clsx('bi', liked ? 'bi-heart-fill' : 'bi-heart')}
       aria-hidden="true"
     />
   );

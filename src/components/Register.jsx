@@ -48,51 +48,49 @@ const Register = () => {
     <section className="py-5">
       <h1>Register</h1>
 
-      <FormProvider {...methods}>
-        <form className="mt-4" onSubmit={handleSubmit(onSubmit)} noValidate>
-          <div className="form-row">
-            <Field
-              type="text"
-              name="name"
-              label="Full name"
-              className="col-md-6 col-lg-4"
-              placeholder="John Doe"
-              required
-              autoFocus
-              autoComplete="name"
-            />
-          </div>
-          <div className="form-row">
-            <Field
-              type="email"
-              name="email"
-              label="Email address"
-              className="col-md-6 col-lg-4"
-              placeholder="johndoe@example.com"
-              required
-              autoComplete="email"
-            />
-          </div>
-          <div className="form-row">
-            <Field
-              type="password"
-              name="password"
-              label="Password"
-              className="col-md-6 col-lg-4"
-              placeholder="********"
-              required
-              autoComplete="new-password"
-            />
-          </div>
-          <button
-            type="submit"
-            className="btn btn-primary"
-            disabled={isSubmitting}
-          >
-            Register
-          </button>
-        </form>
-      </FormProvider>
+      <div className="row mt-4">
+        <div className="col-md-6 col-lg-4">
+          <FormProvider {...methods}>
+            <form onSubmit={handleSubmit(onSubmit)} noValidate>
+              <Field
+                type="text"
+                name="name"
+                label="Full name"
+                className="mb-3"
+                placeholder="John Doe"
+                required
+                autoFocus
+                autoComplete="name"
+              />
+              <Field
+                type="email"
+                name="email"
+                label="Email address"
+                className="mb-3"
+                placeholder="johndoe@example.com"
+                required
+                autoComplete="email"
+              />
+              <Field
+                type="password"
+                name="password"
+                label="Password"
+                className="mb-3"
+                placeholder="********"
+                required
+                autoComplete="new-password"
+              />
+              <button
+                type="submit"
+                className="btn btn-primary"
+                disabled={isSubmitting}
+              >
+                Register
+              </button>
+            </form>
+          </FormProvider>
+        </div>
+      </div>
     </section>
   );
 };

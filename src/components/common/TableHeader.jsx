@@ -2,14 +2,14 @@ import clsx from 'clsx';
 
 const TableHeader = ({ columns, sortColumn, onSort }) => {
   const handleSort = path => {
-    if (sortColumn.path === path) {
-      sortColumn.order = sortColumn.order === 'asc' ? 'desc' : 'asc';
-    } else {
-      sortColumn.path = path;
-      sortColumn.order = 'asc';
-    }
+    const order =
+      sortColumn.path === path
+        ? sortColumn.order === 'asc'
+          ? 'desc'
+          : 'asc'
+        : 'asc';
 
-    onSort(sortColumn);
+    onSort({ path, order });
   };
 
   return (
@@ -25,8 +25,8 @@ const TableHeader = ({ columns, sortColumn, onSort }) => {
             {column.path === sortColumn.path && (
               <i
                 className={clsx(
-                  'ml-2 fa',
-                  sortColumn.order === 'asc' ? 'fa-sort-asc' : 'fa-sort-desc'
+                  'ms-2 bi',
+                  sortColumn.order === 'asc' ? 'bi-sort-down' : 'bi-sort-up'
                 )}
                 aria-hidden="true"
               />

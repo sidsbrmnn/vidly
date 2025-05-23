@@ -9,23 +9,28 @@ const ListGroup = ({
   onItemSelect,
 }) => {
   return (
-    <ul className="list-group">
+    <div className="list-group">
       {items.map(item => (
-        <li
+        <button
           key={item[keyProperty]}
+          type="button"
           className={clsx(
-            'list-group-item',
+            'list-group-item list-group-item-action',
             selectedItem &&
               item[keyProperty] === selectedItem[keyProperty] &&
               'active'
           )}
           onClick={() => onItemSelect(item)}
-          role="button"
+          aria-current={
+            selectedItem && item[keyProperty] === selectedItem[keyProperty]
+              ? 'true'
+              : undefined
+          }
         >
           {item[valueProperty]}
-        </li>
+        </button>
       ))}
-    </ul>
+    </div>
   );
 };
 

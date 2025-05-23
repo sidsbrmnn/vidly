@@ -9,14 +9,19 @@ const Pagination = ({ itemsCount, pageSize, currentPage, onPageChange }) => {
   const pages = range(1, pageCount + 1);
 
   return (
-    <nav>
+    <nav aria-label="Page navigation">
       <ul className="pagination">
         {pages.map(page => (
           <li
             key={page}
             className={clsx('page-item', page === currentPage && 'active')}
           >
-            <button className="page-link" onClick={() => onPageChange(page)}>
+            <button
+              type="button"
+              className="page-link"
+              onClick={() => onPageChange(page)}
+              aria-current={page === currentPage ? 'page' : undefined}
+            >
               {page}
             </button>
           </li>

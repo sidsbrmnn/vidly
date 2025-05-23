@@ -49,40 +49,40 @@ const Login = () => {
     <section className="py-5">
       <h1>Login</h1>
 
-      <FormProvider {...methods}>
-        <form className="mt-4" onSubmit={handleSubmit(onSubmit)} noValidate>
-          <div className="form-row">
-            <Field
-              type="email"
-              name="email"
-              label="Email address"
-              className="col-md-6 col-lg-4"
-              placeholder="Email address"
-              required
-              autoFocus
-              autoComplete="email"
-            />
-          </div>
-          <div className="form-row">
-            <Field
-              type="password"
-              name="password"
-              label="Password"
-              className="col-md-6 col-lg-4"
-              placeholder="Password"
-              required
-              autoComplete="current-password"
-            />
-          </div>
-          <button
-            type="submit"
-            className="btn btn-primary"
-            disabled={isSubmitting}
-          >
-            Login
-          </button>
-        </form>
-      </FormProvider>
+      <div className="row mt-4">
+        <div className="col-md-6 col-lg-4">
+          <FormProvider {...methods}>
+            <form onSubmit={handleSubmit(onSubmit)} noValidate>
+              <Field
+                type="email"
+                name="email"
+                label="Email address"
+                className="mb-3"
+                placeholder="Email address"
+                required
+                autoFocus
+                autoComplete="email"
+              />
+              <Field
+                type="password"
+                name="password"
+                label="Password"
+                className="mb-3"
+                placeholder="Password"
+                required
+                autoComplete="current-password"
+              />
+              <button
+                type="submit"
+                className="btn btn-primary"
+                disabled={isSubmitting}
+              >
+                Login
+              </button>
+            </form>
+          </FormProvider>
+        </div>
+      </div>
     </section>
   );
 };

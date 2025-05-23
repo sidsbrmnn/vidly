@@ -129,25 +129,25 @@ const Movies = () => {
 
   return (
     <section className="py-5">
-      <div className="row">
-        <div className="col-12 col-md-3">
+      <div className="row row-cols-1">
+        <div className="col col-md-3">
           <ListGroup
             items={genres}
             selectedItem={selectedGenre}
             onItemSelect={handleGenreSelect}
           />
         </div>
-        <div className="col-12 col-md-9 mt-4 mt-md-0 space-y-3">
+        <div className="col col-md-9 mt-4 mt-md-0">
           <SearchBox value={searchQuery} onChange={handleSearch} />
-          <div className="d-sm-flex flex-col-reverse justify-content-between align-items-center space-y-3 space-y-sm-0">
+          <div className="d-flex flex-column-reverse flex-sm-row align-items-start align-items-sm-center justify-content-between mt-3">
             <div>Showing {filteredCount} movies in the database.</div>
             {auth.payload && auth.payload.isAdmin && (
-              <Link to="/movies/new" className="btn btn-primary">
+              <Link to="/movies/new" className="btn btn-primary mb-2 mb-sm-0">
                 New Movie
               </Link>
             )}
           </div>
-          <div>
+          <div className="mt-3">
             <Table
               columns={columns}
               sortColumn={sortColumn}

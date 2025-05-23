@@ -11,7 +11,7 @@ const Navbar = ({ links = [] }) => {
   const toggleNavbar = () => setIsOpen(prevState => !prevState);
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+    <nav className="navbar navbar-expand-lg bg-body-tertiary">
       <div className="container">
         <Link to="/" className="navbar-brand">
           Vidly
@@ -30,9 +30,9 @@ const Navbar = ({ links = [] }) => {
 
         <div
           id="navbarSupportedContent"
-          className={clsx('navbar-collapse collapse', isOpen && 'show')}
+          className={clsx('collapse navbar-collapse', isOpen && 'show')}
         >
-          <ul className="navbar-nav mr-auto">
+          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             {links.map(link => (
               <li key={link.path} className="nav-item">
                 <NavLink to={link.path} className="nav-link">
@@ -42,7 +42,7 @@ const Navbar = ({ links = [] }) => {
             ))}
           </ul>
 
-          <ul className="navbar-nav ml-auto">
+          <ul className="navbar-nav ms-auto">
             {auth.payload ? (
               <>
                 <li className="nav-item">
